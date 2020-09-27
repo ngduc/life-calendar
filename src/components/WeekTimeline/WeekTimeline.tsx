@@ -33,7 +33,7 @@ const transformData = (data: any = { events: [] }) => {
   const now = new Date();
   _data.events.push({
     title: `Today: ${format(now, 'yyyy-MM-dd')}`,
-    type: 1,
+    type: 0,
     date: format(now, 'yyyy-MM-dd'),
     _date: now,
     _weekNum: differenceInWeeks(now, firstEvent._date)
