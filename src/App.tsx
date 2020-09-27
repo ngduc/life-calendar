@@ -16,7 +16,16 @@ function App() {
       <header className="App-header">
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
         <Flex m={2} ml={20} justifyContent="space-between" w="100%">
-          <h1>Life Calendar: Your Life in Weeks</h1>
+          <h1>
+            Life Calendar: Your Life in Weeks{' '}
+            <a
+              href="https://github.com/ngduc/life-calendar"
+              target="_blank"
+              style={{ fontSize: '0.6em', color: '#555' }}
+            >
+              - Github
+            </a>
+          </h1>
 
           <Box mr={20}>
             <OptionModal />
