@@ -21,7 +21,7 @@ export default function DataModal({
   onSubmit?: (data: any) => void;
 }) {
   const dataStr = `{
-    "events": [{ "type": "1", "date": "1982-01-01", "title": "My birthday" }, { "type": "1", "date": "1982-02-15", "title": "My birthday 2" }]
+    "events": [{ "type": "1", "date": "1982-01-01", "title": "I was born" }, { "type": "1", "date": "1983-01-01", "title": "My 1st birthday" }]
   }`
   const [data, setData] = React.useState(dataStr)
 
