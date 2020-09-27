@@ -1,0 +1,20 @@
+// prettier-ignore
+{
+  // See http://go.microsoft.com/fwlink/?LinkId=827846 to learn about workspace recommendations.
+  // Extension identifier format: ${publisher}.${name}. Example: vscode.csharp
+  // List of extensions which should be recommended for users of this workspace.
+  "recommendations": [
+    "waderyan.gitblame",
+    "editorconfig.editorconfig",
+    "donjayamanne.githistory",
+    "esbenp.prettier-vscode",
+    "eg2.vscode-npm-script",
+    "ms-azuretools.vscode-docker",
+    "redhat.vscode-yaml",
+    "me-dutour-mathieu.vscode-github-actions",
+    "coddx.coddx-alpha",
+    "humao.rest-client"
+  ],
+  // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
+  "unwantedRecommendations": []
+}

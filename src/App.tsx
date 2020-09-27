@@ -1,11 +1,11 @@
-import React from "react";
-import { Button, Flex, Box, useDisclosure } from "@chakra-ui/core";
-import WeekTimeline from "./components/WeekTimeline/WeekTimeline";
-import DataModal from "./components/DataModal/DataModal";
-import OptionModal from './components/OptionModal/OptionModal'
+import React from 'react';
+import { Button, Flex, Box, useDisclosure } from '@chakra-ui/core';
+import WeekTimeline from './components/WeekTimeline/WeekTimeline';
+import DataModal from './components/DataModal/DataModal';
+import OptionModal from './components/OptionModal/OptionModal';
 
-import logo from "./logo.svg";
-import "./App.css";
+import logo from './logo.svg';
+import './App.css';
 
 function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();

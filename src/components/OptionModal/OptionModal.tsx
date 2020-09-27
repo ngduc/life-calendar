@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Popover,
   PopoverCloseButton,
@@ -11,21 +11,16 @@ import {
   Box,
   Button,
   ButtonGroup,
-  Checkbox,
-} from "@chakra-ui/core";
-import { useAppContext } from "../../utils/AppContext";
-import { useRecoilState } from "recoil";
-import { appState } from "../../utils/AppState";
+  Checkbox
+} from '@chakra-ui/core';
+import { useRecoilState } from 'recoil';
+import { appState } from '../../utils/AppState';
 
 export default function OptionModal() {
   const initialFocusRef = React.useRef();
   const [state, setState] = useRecoilState<any>(appState);
   return (
-    <Popover
-      initialFocusRef={initialFocusRef}
-      placement="bottom"
-      closeOnBlur={false}
-    >
+    <Popover initialFocusRef={initialFocusRef} placement="bottom" closeOnBlur={false}>
       <PopoverTrigger>
         <Button size="sm" colorScheme="black" mr={3}>
           Options
@@ -59,14 +54,7 @@ export default function OptionModal() {
             Show year numbers
           </Checkbox>
         </PopoverBody>
-        <PopoverFooter
-          border="0"
-          d="flex"
-          alignItems="center"
-          justifyContent="space-between"
-          pb={4}
-        >
-        </PopoverFooter>
+        <PopoverFooter border="0" d="flex" alignItems="center" justifyContent="space-between" pb={4}></PopoverFooter>
       </PopoverContent>
     </Popover>
   );

@@ -1,21 +1,21 @@
-import React from "react";
-import { Flex, Grid, Box, Tooltip } from "@chakra-ui/core";
-import { getISOWeek, parse, differenceInWeeks, format } from "date-fns";
-import { useRecoilState } from "recoil";
-import { appState } from "../../utils/AppState";
+import React from 'react';
+import { Flex, Grid, Box, Tooltip } from '@chakra-ui/core';
+import { getISOWeek, parse, differenceInWeeks, format } from 'date-fns';
+import { useRecoilState } from 'recoil';
+import { appState } from '../../utils/AppState';
 
 const DefaultData = {
-  events: [{ type: 1, date: "1982-01-01", title: "My birthday" }],
+  events: [{ type: 1, date: '1982-01-01', title: 'My birthday' }]
 };
 
-const parseDate = (dateStr: string) => parse(dateStr, "yyyy-MM-dd", new Date())
+const parseDate = (dateStr: string) => parse(dateStr, 'yyyy-MM-dd', new Date());
 
 const transformData = (data: any = { events: [] }) => {
   const _data = { ...data };
 
   let firstEvent: any = {
     ...DefaultData.events[0],
-    _date: parseDate(DefaultData.events[0].date),
+    _date: parseDate(DefaultData.events[0].date)
   }; // default
   let weekIndex = 0;
   _data.events = data.events || [];
@@ -33,11 +33,11 @@ const transformData = (data: any = { events: [] }) => {
   // append "Today" to the _data.events (as the last event)
   const now = new Date();
   _data.events.push({
-    title: `Today: ${format(now, "yyyy-MM-dd")}`,
+    title: `Today: ${format(now, 'yyyy-MM-dd')}`,
     type: 1,
-    date: format(now, "yyyy-MM-dd"),
+    date: format(now, 'yyyy-MM-dd'),
     _date: now,
-    _weekNum: differenceInWeeks(now, firstEvent._date),
+    _weekNum: differenceInWeeks(now, firstEvent._date)
   });
   return _data;
 };
@@ -47,58 +47,53 @@ export default function WeekTimeline({ data = DefaultData }: { data: any }) {
 
   const dt = Array.from(Array(4681).keys());
   const _data = transformData(data);
-  const _todayItem =
-    _data && _data.events.length > 0
-      ? _data.events[_data.events.length - 1]
-      : { _weekNum: 2000 };
+  const _todayItem = _data && _data.events.length > 0 ? _data.events[_data.events.length - 1] : { _weekNum: 2000 };
 
   console.log('_data', _data);
   return (
     <Flex gridGap={1} width="95vw" flexWrap="wrap">
       {dt.map((item, idx) => {
-        let bgColor = "#333";
+        let bgColor = '#333';
 
         if (idx < _todayItem._weekNum) {
-          bgColor = "#222";
+          bgColor = '#222';
         }
         if (state.options.highlightYears) {
-          bgColor = item % 52 === 0 ? "#335" : bgColor; // highlight every year
+          bgColor = item % 52 === 0 ? '#335' : bgColor; // highlight every year
         }
 
         const obj: any = _data.events.find((d: any) => d._weekNum === idx);
         if (obj) {
-          bgColor = "gray";
+          bgColor = 'gray';
 
           if (obj.type === -3) {
-            bgColor = "darkred";
+            bgColor = 'darkred';
           } else if (obj.type === -2 || obj.type === -1) {
-            bgColor = "darkred";
+            bgColor = 'darkred';
           } else if (obj.type === 1 || obj.type === 2) {
-            bgColor = "#353";
+            bgColor = '#353';
           } else if (obj.type === 3) {
-            bgColor = "pink";
+            bgColor = 'pink';
           }
         }
-        let yearNum = "";
+        let yearNum = '';
         if (state.options.showEveryYears) {
-          yearNum = "" + (item % 260 === 0 ? (item / 260) * 5 : ""); // show year number ever N years
+          yearNum = '' + (item % 260 === 0 ? (item / 260) * 5 : ''); // show year number ever N years
         }
         // yearNum = obj ? obj.title : yearNum; // item % 52 === 0 ? item / 52 : ''
 
         const boxEl = (
-          <Box
-            key={`box_${idx}`}
-            rounded={2}
-            w={3}
-            h={3}
-            style={{ backgroundColor: bgColor, fontSize: 8 }}
-          >
+          <Box key={`box_${idx}`} rounded={2} w={3} h={3} style={{ backgroundColor: bgColor, fontSize: 8 }}>
             {yearNum}
           </Box>
         );
 
         if (obj && obj.title) {
-          return <Tooltip key={`tt_${idx}`} label={obj.title}>{boxEl}</Tooltip>;
+          return (
+            <Tooltip key={`tt_${idx}`} label={obj.title}>
+              {boxEl}
+            </Tooltip>
+          );
         } else {
           return boxEl;
         }
