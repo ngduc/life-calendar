@@ -52,13 +52,12 @@ export default function WeekTimeline({ data = DefaultData }: { data: any }) {
       ? _data.events[_data.events.length - 1]
       : { _weekNum: 2000 };
 
-  console.log(_data);
+  console.log('_data', _data);
   return (
     <Flex gridGap={1} width="95vw" flexWrap="wrap">
       {dt.map((item, idx) => {
         let bgColor = "#333";
 
-        console.log("_todayItem", _todayItem);
         if (idx < _todayItem._weekNum) {
           bgColor = "#222";
         }
@@ -68,7 +67,6 @@ export default function WeekTimeline({ data = DefaultData }: { data: any }) {
 
         const obj: any = _data.events.find((d: any) => d._weekNum === idx);
         if (obj) {
-          console.log("obj", obj);
           bgColor = "gray";
 
           if (obj.type === -3) {
@@ -89,7 +87,7 @@ export default function WeekTimeline({ data = DefaultData }: { data: any }) {
 
         const boxEl = (
           <Box
-            key={`key_${idx}`}
+            key={`box_${idx}`}
             rounded={2}
             w={3}
             h={3}
@@ -100,7 +98,7 @@ export default function WeekTimeline({ data = DefaultData }: { data: any }) {
         );
 
         if (obj && obj.title) {
-          return <Tooltip label={obj.title}>{boxEl}</Tooltip>;
+          return <Tooltip key={`tt_${idx}`} label={obj.title}>{boxEl}</Tooltip>;
         } else {
           return boxEl;
         }

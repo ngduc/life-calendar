@@ -19,17 +19,7 @@ import { appState } from "../../utils/AppState";
 
 export default function OptionModal() {
   const initialFocusRef = React.useRef();
-  // const [appContext, setAppContext] = useAppContext();
-
   const [state, setState] = useRecoilState<any>(appState);
-  console.log("state", state);
-
-  // const onClickSave = () => {
-  //   const _state = { ...state };
-  //   _state.options = { highlightYears: true };
-  //   setState(_state);
-  // };
-
   return (
     <Popover
       initialFocusRef={initialFocusRef}
@@ -49,16 +39,17 @@ export default function OptionModal() {
         <PopoverCloseButton />
         <PopoverBody fontSize="sm">
           <Checkbox
+            defaultIsChecked={!!state.options.highlightYears}
             onChange={(e) => {
               const _state = { ...state };
               _state.options = { ..._state.options, highlightYears: e.target.checked };
               setState(_state);
             }}
-            value={state.highlightYears}
           >
             Highlight every year
           </Checkbox>
           <Checkbox
+            defaultIsChecked={!!state.options.showEveryYears}
             onChange={(e) => {
               const _state = { ...state };
               _state.options = { ..._state.options, showEveryYears: e.target.checked ? 5 : 0 };
@@ -75,12 +66,6 @@ export default function OptionModal() {
           justifyContent="space-between"
           pb={4}
         >
-          {/* <Box fontSize="sm">Step 2 of 4</Box> */}
-          {/* <ButtonGroup size="sm">
-            <Button colorScheme="teal" onClick={onClickSave}>
-              Save
-            </Button>
-          </ButtonGroup> */}
         </PopoverFooter>
       </PopoverContent>
     </Popover>
