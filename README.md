@@ -1,5 +1,7 @@
 # Life Calendar: Your Life in Weeks
 
+[Live website](https://life-calendar-in-weeks.vercel.app/)
+
 Inspired by [this article](https://waitbutwhy.com/2014/05/life-weeks.html)
 
 ### Techs
