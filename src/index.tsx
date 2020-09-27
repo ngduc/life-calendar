@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 
 import { RecoilRoot } from 'recoil';
 import { ChakraProvider } from '@chakra-ui/core';
-import { AppContextProvider } from './utils/AppContext';
 
 import './index.css';
 import App from './App';

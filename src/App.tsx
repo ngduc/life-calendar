@@ -21,7 +21,7 @@ function App() {
           <Box mr={20}>
             <OptionModal />
             <Button size="sm" colorScheme="teal" onClick={onOpen}>
-              Enter Data
+              Events
             </Button>
           </Box>
         </Flex>

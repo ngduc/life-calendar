@@ -36,7 +36,7 @@ export default function DataModal({
     <Modal isOpen={isOpen} onClose={onClose} size="lg">
       <ModalOverlay>
         <ModalContent>
-          <ModalHeader>Enter Data</ModalHeader>
+          <ModalHeader>Enter Events</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Textarea rows={20} onChange={(ev: any) => setData(ev.target.value)} value={data} />
