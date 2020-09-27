@@ -32,7 +32,7 @@ const transformData = (data: any = { events: [] }) => {
   // append "Today" to the _data.events (as the last event)
   const now = new Date();
   _data.events.push({
-    title: `Today: ${format(now, 'yyyy-MM-dd')}`,
+    title: `Today`,
     type: 0,
     date: format(now, 'yyyy-MM-dd'),
     _date: now,
@@ -75,21 +75,24 @@ export default function WeekTimeline({ data = DefaultData }: { data: any }) {
             bgColor = 'pink';
           }
         }
-        let yearNum = '';
+        let boxContent = '';
         if (state.options.showEveryYears) {
-          yearNum = '' + (item % 260 === 0 ? (item / 260) * 5 : ''); // show year number ever N years
+          boxContent = '' + (item % 260 === 0 ? (item / 260) * 5 : ''); // show year number ever N years
         }
-        // yearNum = obj ? obj.title : yearNum; // item % 52 === 0 ? item / 52 : ''
+        // boxContent = obj ? obj.title : boxContent; // item % 52 === 0 ? item / 52 : ''
+        // if first character is Emoji, show it in the box:
+        boxContent = obj && obj.title && obj.title.charCodeAt(0) > 255 ? [...obj.title][0] : boxContent;
 
         const boxEl = (
           <Box key={`box_${idx}`} rounded={2} w={3} h={3} style={{ backgroundColor: bgColor, fontSize: 8 }}>
-            {yearNum}
+            {boxContent}
           </Box>
         );
 
         if (obj && obj.title) {
+          const tooltipLabel = `${obj.date} - ${obj.title}`;
           return (
-            <Tooltip key={`tt_${idx}`} label={obj.title}>
+            <Tooltip key={`tt_${idx}`} label={tooltipLabel}>
               {boxEl}
             </Tooltip>
           );

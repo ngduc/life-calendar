@@ -26,12 +26,12 @@ export default function DataModal({
         {
             "type": 1,
             "date": "1982-01-01",
-            "title": "I was born"
+            "title": "👶 I was born"
         },
         {
             "type": 1,
             "date": "1983-01-01",
-            "title": "My 1st birthday"
+            "title": "🎂 My 1st birthday"
         }
     ]
 }`.trim();

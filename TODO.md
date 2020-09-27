@@ -14,4 +14,5 @@ Roadmap / Todo List
 
 ### Done ✓
 
+- [x] show Emoji icon  
 
