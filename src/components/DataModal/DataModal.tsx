@@ -20,9 +20,21 @@ export default function DataModal({
   onClose: () => void;
   onSubmit?: (data: any) => void;
 }) {
-  const dataStr = `{
-    "events": [{ "type": "1", "date": "1982-01-01", "title": "I was born" }, { "type": "1", "date": "1983-01-01", "title": "My 1st birthday" }]
-  }`;
+  const dataStr = `
+{
+    "events": [
+        {
+            "type": "1",
+            "date": "1982-01-01",
+            "title": "I was born"
+        },
+        {
+            "type": "1",
+            "date": "1983-01-01",
+            "title": "My 1st birthday"
+        }
+    ]
+}`.trim();
   const [data, setData] = React.useState(dataStr);
 
   const onClickSubmit = () => {

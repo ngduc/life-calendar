@@ -3,14 +3,14 @@ import {
   Popover,
   PopoverCloseButton,
   PopoverTrigger,
-  PopoverHeader,
+  // PopoverHeader,
   PopoverContent,
   PopoverArrow,
   PopoverBody,
   PopoverFooter,
   Box,
   Button,
-  ButtonGroup,
+  // ButtonGroup,
   Checkbox
 } from '@chakra-ui/core';
 import { useRecoilState } from 'recoil';
@@ -33,26 +33,28 @@ export default function OptionModal() {
         <PopoverArrow />
         <PopoverCloseButton />
         <PopoverBody fontSize="sm">
-          <Checkbox
-            defaultIsChecked={!!state.options.highlightYears}
-            onChange={(e) => {
-              const _state = { ...state };
-              _state.options = { ..._state.options, highlightYears: e.target.checked };
-              setState(_state);
-            }}
-          >
-            Highlight every year
-          </Checkbox>
-          <Checkbox
-            defaultIsChecked={!!state.options.showEveryYears}
-            onChange={(e) => {
-              const _state = { ...state };
-              _state.options = { ..._state.options, showEveryYears: e.target.checked ? 5 : 0 };
-              setState(_state);
-            }}
-          >
-            Show year numbers
-          </Checkbox>
+          <Box mt={4}>
+            <Checkbox
+              defaultIsChecked={!!state.options.highlightYears}
+              onChange={(e) => {
+                const _state = { ...state };
+                _state.options = { ..._state.options, highlightYears: e.target.checked };
+                setState(_state);
+              }}
+            >
+              Highlight every year
+            </Checkbox>
+            <Checkbox
+              defaultIsChecked={!!state.options.showEveryYears}
+              onChange={(e) => {
+                const _state = { ...state };
+                _state.options = { ..._state.options, showEveryYears: e.target.checked ? 5 : 0 };
+                setState(_state);
+              }}
+            >
+              Show year numbers
+            </Checkbox>
+          </Box>
         </PopoverBody>
         <PopoverFooter border="0" d="flex" alignItems="center" justifyContent="space-between" pb={4}></PopoverFooter>
       </PopoverContent>

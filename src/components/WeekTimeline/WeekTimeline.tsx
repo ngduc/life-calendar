@@ -1,6 +1,6 @@
 import React from 'react';
-import { Flex, Grid, Box, Tooltip } from '@chakra-ui/core';
-import { getISOWeek, parse, differenceInWeeks, format } from 'date-fns';
+import { Flex, Box, Tooltip } from '@chakra-ui/core';
+import { parse, differenceInWeeks, format } from 'date-fns';
 import { useRecoilState } from 'recoil';
 import { appState } from '../../utils/AppState';
 
@@ -17,7 +17,6 @@ const transformData = (data: any = { events: [] }) => {
     ...DefaultData.events[0],
     _date: parseDate(DefaultData.events[0].date)
   }; // default
-  let weekIndex = 0;
   _data.events = data.events || [];
 
   _data.events = _data.events.map((item: any, idx: number) => {

@@ -4,7 +4,7 @@ import WeekTimeline from './components/WeekTimeline/WeekTimeline';
 import DataModal from './components/DataModal/DataModal';
 import OptionModal from './components/OptionModal/OptionModal';
 
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 
 function App() {
