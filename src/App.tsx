@@ -36,16 +36,18 @@ function App({ dataString }: { dataString: string }) {
           <WeekTimeline data={data} />
         </Box>
 
-        <DataModal
-          dataString={dataString}
-          isOpen={isOpen}
-          onClose={onClose}
-          onSubmit={(data: any) => {
-            console.log('onSubmit - data', data);
-            onClose();
-            setData(data);
-          }}
-        />
+        {isOpen && (
+          <DataModal
+            dataString={dataString}
+            isOpen={isOpen}
+            onClose={onClose}
+            onSubmit={(data: any) => {
+              console.log('onSubmit - data', data);
+              onClose();
+              setData(data);
+            }}
+          />
+        )}
       </header>
     </div>
   );

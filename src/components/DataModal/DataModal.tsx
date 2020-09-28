@@ -10,6 +10,7 @@ import {
   Button,
   Textarea
 } from '@chakra-ui/core';
+import { format } from 'date-fns';
 
 export default function DataModal({
   dataString,
@@ -22,11 +23,28 @@ export default function DataModal({
   onClose: () => void;
   onSubmit?: (data: any) => void;
 }) {
-  const [data, setData] = React.useState(dataString);
+  const [data, setData] = React.useState<string>(dataString);
+  const [text, setText] = React.useState<string>(dataString);
 
-  const onClickSubmit = () => {
+  const onClickAdd = () => {
     try {
-      const dataJson = JSON.parse(data);
+      const dataJson = JSON.parse(text);
+      if (dataJson?.events) {
+        dataJson.events.push({
+          type: 0,
+          date: format(new Date(), 'yyyy-MM-dd'),
+          title: 'New'
+        });
+        setText(JSON.stringify(dataJson, null, 4));
+      }
+    } catch {
+      // Error handling: TBD
+    }
+  };
+
+  const onClickApply = () => {
+    try {
+      const dataJson = JSON.parse(text);
       onSubmit && onSubmit(dataJson);
       localStorage.setItem('data', data);
     } catch {
@@ -41,12 +59,15 @@ export default function DataModal({
           <ModalHeader>Events</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Textarea rows={20} onChange={(ev: any) => setData(ev.target.value)} value={data} />
+            <Textarea rows={20} onChange={(ev: any) => setText(ev.target.value)} value={text} />
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="teal" mr={3} onClick={onClickSubmit}>
-              Submit
+            <Button colorScheme="teal" mr={3} onClick={onClickApply}>
+              Apply
+            </Button>
+            <Button variant="ghost" onClick={onClickAdd}>
+              Add Event
             </Button>
             <Button variant="ghost" onClick={onClose}>
               Close
