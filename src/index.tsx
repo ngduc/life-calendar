@@ -22,11 +22,32 @@ const customTheme = merge(theme, {
   }
 });
 
+const DefaultDataStr = `
+{
+    "events": [
+        {
+            "type": 1,
+            "date": "1982-01-01",
+            "title": "👶 I was born"
+        },
+        {
+            "type": 1,
+            "date": "1983-01-01",
+            "title": "🎂 My 1st birthday"
+        }
+    ]
+}`.trim();
+let dataStr = localStorage.getItem('data');
+if (!dataStr) {
+  localStorage.setItem('data', DefaultDataStr);
+  dataStr = DefaultDataStr;
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider resetCSS theme={customTheme}>
       <RecoilRoot>
-        <App />
+        <App dataString={dataStr} />
       </RecoilRoot>
     </ChakraProvider>
   </React.StrictMode>,

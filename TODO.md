@@ -7,12 +7,12 @@ Roadmap / Todo List
 ### Todo
 
 - [ ] Customizable colors, themes  
-- [ ] use localStorage  
 
 ### In Progress
 
 
 ### Done ✓
 
+- [x] use localStorage  
 - [x] show Emoji icon  
 

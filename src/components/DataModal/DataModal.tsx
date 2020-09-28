@@ -12,36 +12,26 @@ import {
 } from '@chakra-ui/core';
 
 export default function DataModal({
+  dataString,
   isOpen,
   onClose,
   onSubmit
 }: {
+  dataString: string;
   isOpen: boolean;
   onClose: () => void;
   onSubmit?: (data: any) => void;
 }) {
-  const dataStr = `
-{
-    "events": [
-        {
-            "type": 1,
-            "date": "1982-01-01",
-            "title": "👶 I was born"
-        },
-        {
-            "type": 1,
-            "date": "1983-01-01",
-            "title": "🎂 My 1st birthday"
-        }
-    ]
-}`.trim();
-  const [data, setData] = React.useState(dataStr);
+  const [data, setData] = React.useState(dataString);
 
   const onClickSubmit = () => {
-    // TODO:
-    // - on load, read from localStorage, remove weekNum
-    // - for each item, calculate weekNum, set to localStorage
-    onSubmit && onSubmit(JSON.parse(data));
+    try {
+      const dataJson = JSON.parse(data);
+      onSubmit && onSubmit(dataJson);
+      localStorage.setItem('data', data);
+    } catch {
+      // Error handling: TBD
+    }
   };
 
   return (

@@ -34,7 +34,7 @@ Inspired by [this article](https://waitbutwhy.com/2014/05/life-weeks.html)
 ```
 - type: event type values: -3, -2, -1, 0, 1, 2, 3 - each has different color.
 - date: format: yyyy-mm-dd
-- title: event title
+- title: event title - it can start with an Emoji like these [Emojis](http://b.link/emojis)
 
 ### Roadmap - Todo
 

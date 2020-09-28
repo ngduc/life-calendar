@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Flex, Box, useDisclosure } from '@chakra-ui/core';
+
 import WeekTimeline from './components/WeekTimeline/WeekTimeline';
 import DataModal from './components/DataModal/DataModal';
 import OptionModal from './components/OptionModal/OptionModal';
@@ -7,9 +8,9 @@ import OptionModal from './components/OptionModal/OptionModal';
 // import logo from './logo.svg';
 import './App.css';
 
-function App() {
+function App({ dataString }: { dataString: string }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [data, setData] = React.useState<any>([]);
+  const [data, setData] = React.useState(JSON.parse(dataString));
 
   return (
     <div className="App">
@@ -40,10 +41,11 @@ function App() {
         </Box>
 
         <DataModal
+          dataString={dataString}
           isOpen={isOpen}
           onClose={onClose}
-          onSubmit={(data: string) => {
-            console.log('data', data);
+          onSubmit={(data: any) => {
+            console.log('onSubmit - data', data);
             onClose();
             setData(data);
           }}
