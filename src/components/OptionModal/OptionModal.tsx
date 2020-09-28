@@ -42,7 +42,7 @@ export default function OptionModal() {
                 setState(_state);
               }}
             >
-              Highlight every year
+              Highlight every 5 years
             </Checkbox>
             <Checkbox
               defaultIsChecked={!!state.options.showEveryYears}

@@ -10,13 +10,14 @@ const DefaultData = {
 
 const parseDate = (dateStr: string) => parse(dateStr, 'yyyy-MM-dd', new Date());
 
+// transform "data" object to add more information like: _date, _weeknum, etc.
 const transformData = (data: any = { events: [] }) => {
   const _data = { ...data };
 
   let firstEvent: any = {
     ...DefaultData.events[0],
     _date: parseDate(DefaultData.events[0].date)
-  }; // default
+  }; // default 1st event (as the "base" event)
   _data.events = data.events || [];
 
   _data.events = _data.events.map((item: any, idx: number) => {
@@ -58,7 +59,7 @@ export default function WeekTimeline({ data = DefaultData }: { data: any }) {
           bgColor = '#222';
         }
         if (state.options.highlightYears) {
-          bgColor = item % 52 === 0 ? '#335' : bgColor; // highlight every year
+          bgColor = item % 261 === 0 ? '#335' : bgColor; // highlight every year
         }
 
         const obj: any = _data.events.find((d: any) => d._weekNum === idx);
@@ -75,9 +76,10 @@ export default function WeekTimeline({ data = DefaultData }: { data: any }) {
             bgColor = 'pink';
           }
         }
+        // 52.143 * 5 ~ 260.7 ~ 261
         let boxContent = '';
         if (state.options.showEveryYears) {
-          boxContent = '' + (item % 260 === 0 ? (item / 260) * 5 : ''); // show year number ever N years
+          boxContent = '' + (item % 261 === 0 ? (item / 261) * 5 : ''); // show year number ever N years
         }
         // boxContent = obj ? obj.title : boxContent; // item % 52 === 0 ? item / 52 : ''
         // if first character is Emoji, show it in the box:
