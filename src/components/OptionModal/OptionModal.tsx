@@ -33,7 +33,7 @@ export default function OptionModal() {
         <PopoverArrow />
         <PopoverCloseButton />
         <PopoverBody fontSize="sm">
-          <Box mt={4}>
+          <Box mt={4} textAlign="left">
             <Checkbox
               defaultIsChecked={!!state.options.highlightYears}
               onChange={(e) => {
@@ -42,7 +42,7 @@ export default function OptionModal() {
                 setState(_state);
               }}
             >
-              Highlight every 5 years
+              Highlight every year
             </Checkbox>
             <Checkbox
               defaultIsChecked={!!state.options.showEveryYears}

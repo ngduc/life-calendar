@@ -93,7 +93,7 @@ export default function WeekTimeline({ data = DefaultData }: { data: any }) {
         if (state.options.showEveryYears) {
           // 52.143 * 5 ~ 260.7 ~ 261
           // boxContent = '' + (item % 261 === 0 ? (item / 261) * 5 : ''); // show year number ever N years
-          boxContent = '' + (markedWeeksIdx % 5 === 0 ? markedWeeksIdx + 1 : '');
+          boxContent = '' + (markedWeeksIdx && markedWeeksIdx % 5 === 0 ? markedWeeksIdx : '');
         }
 
         // boxContent = obj ? obj.title : boxContent; // item % 52 === 0 ? item / 52 : ''
