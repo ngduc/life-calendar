@@ -19,11 +19,7 @@ function App({ dataString }: { dataString: string }) {
         <Flex m={2} ml={20} justifyContent="space-between" w="100%">
           <h1>
             Life Calendar: Your Life in Weeks{' '}
-            <a
-              href="https://github.com/ngduc/life-calendar"
-              target="_blank"
-              style={{ fontSize: '0.6em', color: '#555' }}
-            >
+            <a href="http://b.link/ghub" target="_blank" style={{ fontSize: '0.6em', color: '#555' }}>
               - Github
             </a>
           </h1>

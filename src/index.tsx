@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import LogRocket from 'logrocket';
 
 import { RecoilRoot } from 'recoil';
 import { ChakraProvider } from '@chakra-ui/core';
@@ -10,6 +11,8 @@ import reportWebVitals from './reportWebVitals';
 
 import { theme } from '@chakra-ui/core';
 import { merge } from '@chakra-ui/utils';
+
+LogRocket.init('kztcdf/life-calendar');
 
 // 2. Extend the theme to include custom colors, fonts, etc.
 const customTheme = merge(theme, {
