@@ -6,7 +6,8 @@ Roadmap / Todo List
 
 ### Todo
 
-- [ ] Customizable colors, themes  
+- [ ] customizable colors, themes  
+- [ ] click on a box to add  
 
 ### In Progress
 
