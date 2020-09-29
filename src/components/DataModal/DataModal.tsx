@@ -46,7 +46,8 @@ export default function DataModal({
     try {
       const dataJson = JSON.parse(text);
       onSubmit && onSubmit(dataJson);
-      localStorage.setItem('data', data);
+
+      localStorage.setItem('data', text);
     } catch {
       // Error handling: TBD
     }

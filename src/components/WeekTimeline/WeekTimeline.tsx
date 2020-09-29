@@ -12,13 +12,13 @@ const parseDate = (dateStr: string) => parse(dateStr, 'yyyy-MM-dd', new Date());
 
 // transform "data" object to add more information like: _date, _weeknum, etc.
 const transformData = (data: any = { events: [] }) => {
-  const _data = { ...data };
+  const _data = JSON.parse(JSON.stringify(data));
 
   let firstEvent: any = {
     ...DefaultData.events[0],
     _date: parseDate(DefaultData.events[0].date)
   }; // default 1st event (as the "base" event)
-  _data.events = data.events || [];
+  _data.events = _data.events || [];
 
   // for each item, calculate and append more properties:
   _data.events = _data.events.map((item: any, idx: number) => {
@@ -52,14 +52,14 @@ const transformData = (data: any = { events: [] }) => {
   return [_data, markedWeeks];
 };
 
-export default function WeekTimeline({ data = DefaultData }: { data: any }) {
+export default function WeekTimeline({ data }: { data: any }) {
   const [state, setState] = useRecoilState<any>(appState);
 
   const dt = Array.from(Array(4681).keys());
   const [_data, markedWeeks] = transformData(data);
 
   const _todayItem = _data && _data.events.length > 0 ? _data.events[_data.events.length - 1] : { _weekNum: 2000 };
-  console.log('_data', _data);
+  // console.log('_data', _data);
   return (
     <Flex gridGap={1} width="95vw" flexWrap="wrap">
       {dt.map((item, idx) => {

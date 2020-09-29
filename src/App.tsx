@@ -38,13 +38,14 @@ function App({ dataString }: { dataString: string }) {
 
         {isOpen && (
           <DataModal
-            dataString={dataString}
+            dataString={JSON.stringify(data, null, 4)}
             isOpen={isOpen}
             onClose={onClose}
-            onSubmit={(data: any) => {
-              console.log('onSubmit - data', data);
+            onSubmit={(dataJson: any) => {
+              // console.log('onSubmit - dataJson', dataJson);
+              // console.log(JSON.stringify(dataJson));
               onClose();
-              setData(data);
+              setData(dataJson);
             }}
           />
         )}
