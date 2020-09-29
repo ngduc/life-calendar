@@ -15,7 +15,7 @@ Inspired by [this article](https://waitbutwhy.com/2014/05/life-weeks.html)
 
 ### Event Data
 
-```
+```json
 {
     "options": {},
     "events": [
