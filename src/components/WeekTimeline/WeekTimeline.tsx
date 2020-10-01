@@ -1,6 +1,8 @@
 import React from 'react';
 import { Flex, Box, Tooltip } from '@chakra-ui/core';
-import { getYear, isLeapYear, parse, differenceInWeeks, format } from 'date-fns';
+import EventModal from '../EventModal/EventModal';
+
+import { getYear, isLeapYear, parse, differenceInWeeks, format, addWeeks } from 'date-fns';
 import { useRecoilState } from 'recoil';
 import { appState } from '../../utils/AppState';
 
@@ -53,6 +55,8 @@ const transformData = (data: any = { events: [] }) => {
 };
 
 export default function WeekTimeline({ data }: { data: any }) {
+  const [mainKey, setMainKey] = React.useState(Math.random());
+  const [eventModalOpen, setEventModalOpen] = React.useState(-1);
   const [state, setState] = useRecoilState<any>(appState);
 
   const dt = Array.from(Array(4681).keys());
@@ -61,7 +65,7 @@ export default function WeekTimeline({ data }: { data: any }) {
   const _todayItem = _data && _data.events.length > 0 ? _data.events[_data.events.length - 1] : { _weekNum: 2000 };
   // console.log('_data', _data);
   return (
-    <Flex gridGap={1} width="95vw" flexWrap="wrap">
+    <Flex key={mainKey} gridGap={1} width="95vw" flexWrap="wrap">
       {dt.map((item, idx) => {
         let bgColor = '#333'; // default
 
@@ -100,8 +104,16 @@ export default function WeekTimeline({ data }: { data: any }) {
         // if first character is Emoji, show it in the box:
         boxContent = obj && obj.title && obj.title.charCodeAt(0) > 255 ? [...obj.title][0] : boxContent;
 
+        let boxStartTime = +addWeeks(_data.events[0]._date, idx);
         const boxEl = (
-          <Box key={`box_${idx}`} rounded={2} w={3} h={3} style={{ backgroundColor: bgColor, fontSize: 8 }}>
+          <Box
+            key={`box_${idx}`}
+            onClick={() => setEventModalOpen(boxStartTime)}
+            rounded={2}
+            w={3}
+            h={3}
+            style={{ backgroundColor: bgColor, fontSize: 8, cursor: 'default' }}
+          >
             {boxContent}
           </Box>
         );
@@ -117,6 +129,18 @@ export default function WeekTimeline({ data }: { data: any }) {
           return boxEl;
         }
       })}
+      {eventModalOpen >= 0 && (
+        <EventModal
+          startTime={eventModalOpen}
+          isOpen={true}
+          onClose={() => setEventModalOpen(-1)}
+          onSubmit={(event) => {
+            data.events.push(event);
+            setEventModalOpen(-1);
+            setMainKey(Math.random());
+          }}
+        />
+      )}
     </Flex>
   );
 }

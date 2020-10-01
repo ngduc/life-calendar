@@ -7,13 +7,15 @@ Roadmap / Todo List
 ### Todo
 
 - [ ] customizable colors, themes  
-- [ ] click on a box to add  
+- [ ] multiple events in 1 box  
+- [ ] edit an existing event  
 
 ### In Progress
 
 
 ### Done ✓
 
+- [x] click on a box to add  
 - [x] use localStorage  
 - [x] show Emoji icon  
 
