@@ -6,6 +6,7 @@ body {
   font-family: Verdana, Geneva, Tahoma, sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden; /* to avoid extra space on the right (caused horizontal scrolling) */
 }
 
 code {
