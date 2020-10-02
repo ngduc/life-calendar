@@ -5,6 +5,7 @@ import EventModal from '../EventModal/EventModal';
 import { getYear, isLeapYear, parse, differenceInWeeks, format, addWeeks } from 'date-fns';
 import { useRecoilState } from 'recoil';
 import { appState } from '../../utils/AppState';
+import css from './WeekTimeline.module.css';
 
 const DefaultData = {
   events: [{ type: 1, date: '1982-01-01', title: 'My birthday' }]
@@ -108,6 +109,7 @@ export default function WeekTimeline({ data }: { data: any }) {
         const boxEl = (
           <Box
             key={`box_${idx}`}
+            className={css.box}
             onClick={() => setEventModalOpen(boxStartTime)}
             rounded={2}
             w={3}

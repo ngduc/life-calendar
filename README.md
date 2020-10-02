@@ -6,7 +6,7 @@ Inspired by [this article](https://waitbutwhy.com/2014/05/life-weeks.html)
 
 ### Techs
 
-- React, CRA
+- React, CRA 4.0.0-next
 - Recoil
 - Chakra-ui
 - Date-fns
