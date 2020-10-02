@@ -20,7 +20,7 @@ export default function OptionModal() {
   const initialFocusRef = React.useRef();
   const [state, setState] = useRecoilState<any>(appState);
   return (
-    <Popover initialFocusRef={initialFocusRef} placement="bottom" closeOnBlur={false}>
+    <Popover initialFocusRef={initialFocusRef} placement="bottom">
       <PopoverTrigger>
         <Button size="sm" colorScheme="black" mr={3}>
           Options

@@ -64,14 +64,14 @@ export default function DataModal({
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="teal" mr={3} onClick={onClickApply}>
-              Apply
+            <Button variant="ghost" onClick={onClose}>
+              Close
             </Button>
             <Button variant="ghost" onClick={onClickAdd}>
               Add Event
             </Button>
-            <Button variant="ghost" onClick={onClose}>
-              Close
+            <Button colorScheme="teal" mr={3} onClick={onClickApply}>
+              Apply
             </Button>
           </ModalFooter>
         </ModalContent>

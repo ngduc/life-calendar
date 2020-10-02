@@ -9,6 +9,7 @@ Roadmap / Todo List
 - [ ] customizable colors, themes  
 - [ ] multiple events in 1 box  
 - [ ] edit an existing event  
+- [ ] share link with data in URL  
 
 ### In Progress
 
