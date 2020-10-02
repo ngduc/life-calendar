@@ -12,7 +12,7 @@ import reportWebVitals from './reportWebVitals';
 import { theme } from '@chakra-ui/core';
 import { merge } from '@chakra-ui/utils';
 
-LogRocket.init('kztcdf/life-calendar');
+LogRocket.init('9aapdz/life-calendar');
 
 // 2. Extend the theme to include custom colors, fonts, etc.
 const customTheme = merge(theme, {
