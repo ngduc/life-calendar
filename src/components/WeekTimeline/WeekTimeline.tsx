@@ -45,7 +45,7 @@ const transformData = (data: any = { events: [] }) => {
   });
 
   const firstYear = getYear(firstEvent._date);
-  let markedWeeks = []; // highlighted boxes - 90 years
+  let markedWeeks = []; // highlighted boxes - [0, 52, 104, ...] for 90 years
   let weeks = 0;
   for (let i = 0; i < 90; i += 1) {
     const year = firstYear + i;
@@ -74,10 +74,12 @@ export default function WeekTimeline({ data }: { data: any }) {
           bgColor = '#222'; // passed weeks
         }
 
+        let yearTooltip = '';
         const markedWeeksIdx = markedWeeks.indexOf(idx);
         if (state.options.highlightYears) {
           // bgColor = item % 261 === 0 ? '#335' : bgColor; // highlight every year
           bgColor = markedWeeksIdx >= 0 ? '#335' : bgColor;
+          yearTooltip = markedWeeksIdx >= 0 ? `${markedWeeksIdx + 1} years old` : yearTooltip;
         }
 
         const obj: any = _data.events.find((d: any) => d._weekNum === idx);
@@ -99,6 +101,7 @@ export default function WeekTimeline({ data }: { data: any }) {
           // 52.143 * 5 ~ 260.7 ~ 261
           // boxContent = '' + (item % 261 === 0 ? (item / 261) * 5 : ''); // show year number ever N years
           boxContent = '' + (markedWeeksIdx && markedWeeksIdx % 5 === 0 ? markedWeeksIdx : '');
+          yearTooltip = boxContent ? `${boxContent} years old` : yearTooltip;
         }
 
         // boxContent = obj ? obj.title : boxContent; // item % 52 === 0 ? item / 52 : ''
@@ -120,8 +123,8 @@ export default function WeekTimeline({ data }: { data: any }) {
           </Box>
         );
 
-        if (obj && obj.title) {
-          const tooltipLabel = `${obj.date} - ${obj.title}`;
+        if ((obj && obj.title) || yearTooltip) {
+          const tooltipLabel = obj && obj.title ? `${obj.date} - ${obj.title}` : yearTooltip;
           return (
             <Tooltip key={`tt_${idx}`} label={tooltipLabel}>
               {boxEl}
