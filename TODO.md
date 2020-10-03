@@ -16,6 +16,7 @@ Roadmap / Todo List
 
 ### Done ✓
 
+- [x] new layout: one row one year  
 - [x] click on a box to add  
 - [x] use localStorage  
 - [x] show Emoji icon  

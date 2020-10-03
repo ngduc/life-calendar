@@ -54,6 +54,16 @@ export default function OptionModal() {
             >
               Show year numbers
             </Checkbox>
+            <Checkbox
+              defaultIsChecked={!!state.options.oneRowOneYear}
+              onChange={(e) => {
+                const _state = { ...state };
+                _state.options = { ..._state.options, oneRowOneYear: e.target.checked };
+                setState(_state);
+              }}
+            >
+              One row is one year
+            </Checkbox>
           </Box>
         </PopoverBody>
         <PopoverFooter border="0" d="flex" alignItems="center" justifyContent="space-between" pb={4}></PopoverFooter>

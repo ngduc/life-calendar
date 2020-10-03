@@ -50,8 +50,59 @@ const transformData = (data: any = { events: [] }) => {
   for (let i = 0; i < 90; i += 1) {
     const year = firstYear + i;
     weeks = weeks + (isLeapYear(year) ? 52.28571 : 52.14286);
-    markedWeeks.push(Math.round(weeks)); // TODO: rounding leads to inaccurate box position
+
+    let markedWeek = Math.round(weeks);
+    // adjust for better alignment (because of Math.round and leap years)
+    markedWeek++;
+    if (
+      [
+        4,
+        5,
+        6,
+        11,
+        12,
+        13,
+        18,
+        19,
+        20,
+        25,
+        26,
+        27,
+        32,
+        33,
+        34,
+        39,
+        40,
+        41,
+        46,
+        47,
+        48,
+        53,
+        54,
+        55,
+        60,
+        61,
+        62,
+        67,
+        68,
+        69,
+        74,
+        75,
+        76,
+        81,
+        82,
+        83,
+        88,
+        89,
+        90
+      ].indexOf(i + 1) >= 0
+    ) {
+      markedWeek = markedWeek - 1;
+    }
+    markedWeeks.push(markedWeek); // TODO: rounding leads to inaccurate box position
   }
+  // console.log('markedWeeks', markedWeeks);
+
   return [_data, markedWeeks];
 };
 
@@ -65,76 +116,100 @@ export default function WeekTimeline({ data }: { data: any }) {
   const [_data, markedWeeks] = transformData(data);
 
   const _todayItem = _data && _data.events.length > 0 ? _data.events[_data.events.length - 1] : { _weekNum: 2000 };
-  // console.log('_data', _data);
+  const years = Array.from(Array(90).keys()); // [0, 1, 2, ...] as 90 years
+
+  const renderBoxes = (yearIdx = -1) => {
+    return (
+      <>
+        {dt.map((_, idx) => {
+          if (yearIdx >= 0) {
+            if (idx < yearIdx * 52.143 || idx > yearIdx * 52.143 + 52.143) {
+              return null;
+            }
+          }
+          let bgColor = '#333'; // default
+
+          if (idx < _todayItem._weekNum) {
+            bgColor = '#222'; // passed weeks
+          }
+
+          let yearTooltip = '';
+          const markedWeeksIdx = markedWeeks.indexOf(idx);
+
+          if (state.options.highlightYears) {
+            // bgColor = item % 261 === 0 ? '#335' : bgColor; // highlight every year
+            bgColor = markedWeeksIdx >= 0 ? '#224' : bgColor;
+            yearTooltip = markedWeeksIdx >= 0 ? `${markedWeeksIdx + 1} years old` : yearTooltip;
+          }
+
+          const obj: any = _data.events.find((d: any) => d._weekNum === idx);
+          if (obj) {
+            bgColor = 'gray';
+
+            if (obj.type === -3) {
+              bgColor = 'darkred';
+            } else if (obj.type === -2 || obj.type === -1) {
+              bgColor = 'darkred';
+            } else if (obj.type === 1 || obj.type === 2) {
+              bgColor = '#353';
+            } else if (obj.type === 3) {
+              bgColor = 'pink';
+            }
+          }
+          let boxContent = '';
+          if (state.options.showEveryYears) {
+            // 52.143 * 5 ~ 260.7 ~ 261
+            // boxContent = '' + (item % 261 === 0 ? (item / 261) * 5 : ''); // show year number ever N years
+            boxContent = '' + (markedWeeksIdx > 1 && (markedWeeksIdx + 1) % 5 === 0 ? markedWeeksIdx + 1 : '');
+
+            yearTooltip = boxContent ? `${boxContent} years old` : yearTooltip;
+          }
+
+          // boxContent = obj ? obj.title : boxContent; // item % 52 === 0 ? item / 52 : ''
+          // if first character is Emoji, show it in the box:
+          boxContent = obj && obj.title && obj.title.charCodeAt(0) > 255 ? [...obj.title][0] : boxContent;
+
+          let boxStartTime = +addWeeks(_data.events[0]._date, idx);
+          const boxEl = (
+            <Box
+              key={`box_${yearIdx}_${idx}`}
+              className={css.box}
+              onClick={() => setEventModalOpen(boxStartTime)}
+              rounded={2}
+              w={3}
+              h={3}
+              style={{ backgroundColor: bgColor, fontSize: 8, cursor: 'default' }}
+            >
+              {boxContent}
+            </Box>
+          );
+
+          if ((obj && obj.title) || yearTooltip) {
+            const tooltipLabel = obj && obj.title ? `${obj.date} - ${obj.title}` : yearTooltip;
+            return (
+              <Tooltip key={`tt_${idx}`} label={tooltipLabel}>
+                {boxEl}
+              </Tooltip>
+            );
+          } else {
+            return boxEl;
+          }
+        })}
+      </>
+    );
+  };
   return (
     <Flex key={mainKey} gridGap={1} width="95vw" flexWrap="wrap">
-      {dt.map((item, idx) => {
-        let bgColor = '#333'; // default
+      {state.options.oneRowOneYear === true
+        ? years.map((_, yearIdx) => {
+            return (
+              <Flex key={`flex_${yearIdx}`} gridGap={1} width="95vw" flexWrap="wrap">
+                {renderBoxes(yearIdx)}
+              </Flex>
+            );
+          })
+        : renderBoxes()}
 
-        if (idx < _todayItem._weekNum) {
-          bgColor = '#222'; // passed weeks
-        }
-
-        let yearTooltip = '';
-        const markedWeeksIdx = markedWeeks.indexOf(idx);
-        if (state.options.highlightYears) {
-          // bgColor = item % 261 === 0 ? '#335' : bgColor; // highlight every year
-          bgColor = markedWeeksIdx >= 0 ? '#335' : bgColor;
-          yearTooltip = markedWeeksIdx >= 0 ? `${markedWeeksIdx + 1} years old` : yearTooltip;
-        }
-
-        const obj: any = _data.events.find((d: any) => d._weekNum === idx);
-        if (obj) {
-          bgColor = 'gray';
-
-          if (obj.type === -3) {
-            bgColor = 'darkred';
-          } else if (obj.type === -2 || obj.type === -1) {
-            bgColor = 'darkred';
-          } else if (obj.type === 1 || obj.type === 2) {
-            bgColor = '#353';
-          } else if (obj.type === 3) {
-            bgColor = 'pink';
-          }
-        }
-        let boxContent = '';
-        if (state.options.showEveryYears) {
-          // 52.143 * 5 ~ 260.7 ~ 261
-          // boxContent = '' + (item % 261 === 0 ? (item / 261) * 5 : ''); // show year number ever N years
-          boxContent = '' + (markedWeeksIdx && markedWeeksIdx % 5 === 0 ? markedWeeksIdx : '');
-          yearTooltip = boxContent ? `${boxContent} years old` : yearTooltip;
-        }
-
-        // boxContent = obj ? obj.title : boxContent; // item % 52 === 0 ? item / 52 : ''
-        // if first character is Emoji, show it in the box:
-        boxContent = obj && obj.title && obj.title.charCodeAt(0) > 255 ? [...obj.title][0] : boxContent;
-
-        let boxStartTime = +addWeeks(_data.events[0]._date, idx);
-        const boxEl = (
-          <Box
-            key={`box_${idx}`}
-            className={css.box}
-            onClick={() => setEventModalOpen(boxStartTime)}
-            rounded={2}
-            w={3}
-            h={3}
-            style={{ backgroundColor: bgColor, fontSize: 8, cursor: 'default' }}
-          >
-            {boxContent}
-          </Box>
-        );
-
-        if ((obj && obj.title) || yearTooltip) {
-          const tooltipLabel = obj && obj.title ? `${obj.date} - ${obj.title}` : yearTooltip;
-          return (
-            <Tooltip key={`tt_${idx}`} label={tooltipLabel}>
-              {boxEl}
-            </Tooltip>
-          );
-        } else {
-          return boxEl;
-        }
-      })}
       {eventModalOpen >= 0 && (
         <EventModal
           startTime={eventModalOpen}
