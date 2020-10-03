@@ -32,9 +32,9 @@ export default function EventModal(props: Props) {
 
   const onClickSubmit = () => {
     const event = {
-      title: title,
+      title: title || 'New Event',
       date: selectedDateValue,
-      type: parseInt(type)
+      type: parseInt(type || '1')
     };
     // console.log('event', event);
     onSubmit && onSubmit(event);

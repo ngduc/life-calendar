@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Box, Tooltip } from '@chakra-ui/core';
+import { Flex, Box, Tooltip, useToast } from '@chakra-ui/core';
 import EventModal from '../EventModal/EventModal';
 
 import { getYear, isLeapYear, parse, differenceInWeeks, format, addWeeks } from 'date-fns';
@@ -56,6 +56,7 @@ const transformData = (data: any = { events: [] }) => {
 };
 
 export default function WeekTimeline({ data }: { data: any }) {
+  const toast = useToast();
   const [mainKey, setMainKey] = React.useState(Math.random());
   const [eventModalOpen, setEventModalOpen] = React.useState(-1);
   const [state, setState] = useRecoilState<any>(appState);
@@ -143,6 +144,13 @@ export default function WeekTimeline({ data }: { data: any }) {
             data.events.push(event);
             setEventModalOpen(-1);
             setMainKey(Math.random());
+            toast({
+              title: 'Added',
+              description: `You have total ${data.events.length} events (boxes) now.`,
+              status: 'success',
+              duration: 9000,
+              isClosable: true
+            });
           }}
         />
       )}

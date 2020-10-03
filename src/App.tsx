@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Flex, Box, useDisclosure } from '@chakra-ui/core';
+import { useToast, Button, Flex, Box, useDisclosure } from '@chakra-ui/core';
 
 import WeekTimeline from './components/WeekTimeline/WeekTimeline';
 import DataModal from './components/DataModal/DataModal';
@@ -9,6 +9,7 @@ import OptionModal from './components/OptionModal/OptionModal';
 import './App.css';
 
 function App({ dataString }: { dataString: string }) {
+  const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [data, setData] = React.useState(JSON.parse(dataString));
 
@@ -43,9 +44,15 @@ function App({ dataString }: { dataString: string }) {
             onClose={onClose}
             onSubmit={(dataJson: any) => {
               // console.log('onSubmit - dataJson', dataJson);
-              // console.log(JSON.stringify(dataJson));
               onClose();
               setData(dataJson);
+              toast({
+                title: 'Updated',
+                description: `You have total ${dataJson.events.length} events (boxes) now.`,
+                status: 'success',
+                duration: 9000,
+                isClosable: true
+              });
             }}
           />
         )}

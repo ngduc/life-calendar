@@ -35,8 +35,8 @@ const DefaultDataStr = `
         },
         {
             "type": 1,
-            "date": "1983-01-01",
-            "title": "🎂 My 1st birthday"
+            "date": "1984-01-01",
+            "title": "🎂 My 2nd birthday"
         }
     ]
 }`.trim();

@@ -4,7 +4,7 @@ export const appState = atom({
   key: 'appState',
   default: {
     options: {
-      highlightYears: true,
+      highlightYears: false,
       showEveryYears: 5
     },
     events: []
