@@ -13,6 +13,21 @@ function App({ dataString }: { dataString: string }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [data, setData] = React.useState(JSON.parse(dataString));
 
+  React.useEffect(() => {
+    let visits: number = parseInt(localStorage.getItem('visits') || '0');
+    visits++;
+    localStorage.setItem('visits', `${visits}`);
+    if (visits === 1) {
+      toast({
+        title: 'Welcome',
+        description: `- Each box is a week - Click "Events" to manage them - Works better on Desktop`,
+        status: 'info',
+        duration: 12000,
+        isClosable: true
+      });
+    }
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
