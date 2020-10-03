@@ -9,7 +9,8 @@ import {
   ModalCloseButton,
   Button,
   Textarea,
-  Box
+  Box,
+  Tooltip
 } from '@chakra-ui/core';
 import { format } from 'date-fns';
 
@@ -54,6 +55,11 @@ export default function DataModal({
     }
   };
 
+  const onClickShare = () => {
+    const base64DataString = btoa(unescape(encodeURIComponent(text)));
+    window.open(`${window.location.origin}/?data=${base64DataString}`);
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl">
       <ModalOverlay>
@@ -72,10 +78,12 @@ export default function DataModal({
               </Button>
             </Box>
             <Box width="100%" textAlign="right">
-              <Button variant="ghost" onClick={onClose}>
-                Close
-              </Button>
-              <Button colorScheme="teal" mr={3} onClick={onClickApply}>
+              <Tooltip label="Create a 'shareable URL' and open it">
+                <Button colorScheme="gray" onClick={onClickShare} mr={3}>
+                  Share
+                </Button>
+              </Tooltip>
+              <Button colorScheme="teal" onClick={onClickApply}>
                 Apply
               </Button>
             </Box>

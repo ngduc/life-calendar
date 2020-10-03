@@ -21,7 +21,7 @@ function App({ dataString }: { dataString: string }) {
           <h1>
             Life Calendar: Your Life in Weeks{' '}
             <a href="http://b.link/ghub" target="_blank" rel="noreferrer" style={{ fontSize: '0.6em', color: '#555' }}>
-              - Github
+              on Github
             </a>
           </h1>
 

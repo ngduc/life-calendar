@@ -63,9 +63,9 @@ export default function EventModal(props: Props) {
           </ModalBody>
 
           <ModalFooter>
-            <Button variant="ghost" onClick={onClose}>
+            {/* <Button variant="ghost" onClick={onClose}>
               Close
-            </Button>
+            </Button> */}
             <Button colorScheme="teal" onClick={onClickSubmit}>
               Add Event
             </Button>

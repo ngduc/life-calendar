@@ -161,13 +161,12 @@ export default function WeekTimeline({ data }: { data: any }) {
             // 52.143 * 5 ~ 260.7 ~ 261
             // boxContent = '' + (item % 261 === 0 ? (item / 261) * 5 : ''); // show year number ever N years
             boxContent = '' + (markedWeeksIdx > 1 && (markedWeeksIdx + 1) % 5 === 0 ? markedWeeksIdx + 1 : '');
-
             yearTooltip = boxContent ? `${boxContent} years old` : yearTooltip;
           }
 
           // boxContent = obj ? obj.title : boxContent; // item % 52 === 0 ? item / 52 : ''
           // if first character is Emoji, show it in the box:
-          boxContent = obj && obj.title && obj.title.charCodeAt(0) > 255 ? [...obj.title][0] : boxContent;
+          boxContent = obj && obj.title && obj.title.trim().charCodeAt(0) > 255 ? [...obj.title.trim()][0] : boxContent;
 
           let boxStartTime = +addWeeks(_data.events[0]._date, idx);
           const boxEl = (

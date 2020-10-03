@@ -41,7 +41,13 @@ const DefaultDataStr = `
     ]
 }`.trim();
 let dataStr = localStorage.getItem('data');
-if (!dataStr) {
+
+let dataFromUrl = window.location.search.split('data=')[1];
+if (dataFromUrl && dataFromUrl.length > 10) {
+  dataFromUrl = decodeURIComponent(escape(window.atob(dataFromUrl)));
+  localStorage.setItem('data', dataFromUrl);
+  dataStr = dataFromUrl;
+} else if (!dataStr) {
   localStorage.setItem('data', DefaultDataStr);
   dataStr = DefaultDataStr;
 }
