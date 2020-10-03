@@ -1,8 +1,6 @@
 # Life Calendar: Your Life in Weeks
 
-[Live website](https://life-calendar-in-weeks.vercel.app/)
-
-Inspired by [this article](https://waitbutwhy.com/2014/05/life-weeks.html)
+[Live Website](https://life-calendar-in-weeks.vercel.app/)
 
 ### Techs
 
@@ -10,6 +8,8 @@ Inspired by [this article](https://waitbutwhy.com/2014/05/life-weeks.html)
 - Recoil
 - Chakra-ui
 - Date-fns
+
+Inspired by [Tim Urban's article](https://waitbutwhy.com/2014/05/life-weeks.html)
 
 <img src="./docs/demo-01.png" />
 
@@ -32,10 +32,15 @@ Inspired by [this article](https://waitbutwhy.com/2014/05/life-weeks.html)
     ]
 }
 ```
-- type: event type values: -3, -2, -1, 0, 1, 2, 3 - each has different color.
+- type: event type values: -3, -2, -1, 0, 1, 2, 3 (sad-to-happy point) - each has different color.
 - date: format: yyyy-mm-dd
 - title: event title - it can start with an Emoji like these [Emojis](http://b.link/emojis)
 
 ### Roadmap - Todo
 
-[Roadmap - Todo](./TODO.md)
+- [Roadmap - Todo](./TODO.md) Kanban Board
+
+### Other Projects:
+
+- [React-tabulator](https://github.com/ngduc/react-tabulator) - a react table component with many advanced features.
+- VSCode extension: [TODO.md Kanban Board](https://github.com/todomd/todo.md) - use kanban to manage your project's todo list.
