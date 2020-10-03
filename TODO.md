@@ -9,13 +9,14 @@ Roadmap / Todo List
 - [ ] customizable colors, themes  
 - [ ] multiple events in 1 box  
 - [ ] edit an existing event  
-- [ ] share link with data in URL  
+- [ ] handle description  
 
 ### In Progress
 
 
 ### Done ✓
 
+- [x] share link with data in URL  
 - [x] new layout: one row one year  
 - [x] click on a box to add  
 - [x] use localStorage  
