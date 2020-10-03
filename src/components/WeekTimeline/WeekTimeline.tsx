@@ -226,6 +226,7 @@ export default function WeekTimeline({ data }: { data: any }) {
               duration: 9000,
               isClosable: true
             });
+            localStorage.setItem('data', JSON.stringify(data));
           }}
         />
       )}
