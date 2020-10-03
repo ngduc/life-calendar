@@ -8,7 +8,8 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
-  Textarea
+  Textarea,
+  Box
 } from '@chakra-ui/core';
 import { format } from 'date-fns';
 
@@ -23,7 +24,7 @@ export default function DataModal({
   onClose: () => void;
   onSubmit?: (data: any) => void;
 }) {
-  const [data, setData] = React.useState<string>(dataString);
+  // const [data, setData] = React.useState<string>(dataString);
   const [text, setText] = React.useState<string>(dataString);
 
   const onClickAdd = () => {
@@ -31,7 +32,7 @@ export default function DataModal({
       const dataJson = JSON.parse(text);
       if (dataJson?.events) {
         dataJson.events.push({
-          type: 0,
+          type: 1,
           date: format(new Date(), 'yyyy-MM-dd'),
           title: 'New'
         });
@@ -60,19 +61,24 @@ export default function DataModal({
           <ModalHeader>Events</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
+            <Box mb={4}>"type" can have -3, -2, -1, 0, 1, 2 or 3 (sad-to-happy point)</Box>
             <Textarea rows={20} onChange={(ev: any) => setText(ev.target.value)} value={text} />
           </ModalBody>
 
           <ModalFooter>
-            <Button variant="ghost" onClick={onClose}>
-              Close
-            </Button>
-            <Button variant="ghost" onClick={onClickAdd}>
-              Add Event
-            </Button>
-            <Button colorScheme="teal" mr={3} onClick={onClickApply}>
-              Apply
-            </Button>
+            <Box>
+              <Button colorScheme="gray" onClick={onClickAdd}>
+                ＋ Add Event
+              </Button>
+            </Box>
+            <Box width="100%" textAlign="right">
+              <Button variant="ghost" onClick={onClose}>
+                Close
+              </Button>
+              <Button colorScheme="teal" mr={3} onClick={onClickApply}>
+                Apply
+              </Button>
+            </Box>
           </ModalFooter>
         </ModalContent>
       </ModalOverlay>
